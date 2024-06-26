@@ -1,5 +1,6 @@
 using System;
 using RPG.Characters.Commons;
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -17,16 +18,18 @@ namespace RPG.Combat
 
         void Update()
         {
-            if (target != null)
+            if (target == null) return;
+
+            if (!IsInAttackRange())
             {
                 mover.MoveTo(target.position);
+            }
 
-                if (IsInAttackRange())
-                {
-                    mover.Stop();
-                    Hit();
-                    Cancel();
-                }
+            if (IsInAttackRange())
+            {
+                GetComponent<ActionScheduler>().StartAction(this);
+                Hit();
+                Cancel();
             }
         }
 
