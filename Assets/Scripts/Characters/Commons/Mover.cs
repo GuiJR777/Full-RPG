@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace RPG.Characters.Commons
 {
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour, IAction
     {
         NavMeshAgent navMesh;
 
@@ -19,7 +19,7 @@ namespace RPG.Characters.Commons
             navMesh.isStopped = false;
         }
 
-        public void Stop()
+        public void Cancel()
         {
             navMesh.isStopped = true;
 

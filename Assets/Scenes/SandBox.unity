@@ -965,39 +965,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!1 &2100620929 stripped
+--- !u!1 &2100221893 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 507707006745819990, guid: 2df9529200ead4cdeb1eae005c445b50,
+  m_CorrespondingSourceObject: {fileID: 5013041492628547712, guid: 045dae6cac6744734863826458a5bfa3,
     type: 3}
-  m_PrefabInstance: {fileID: 2258794942222556097}
+  m_PrefabInstance: {fileID: 8254207734472079863}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &2100620934
-Rigidbody:
+--- !u!114 &2100221902
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2100620929}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
+  m_GameObject: {fileID: 2100221893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8aca532710544e0b33b914d0dfd15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2135063594 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 196646, guid: 5a346deceb21d0c4781e67a70fbcc1f6,
@@ -1086,11 +1071,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 507707006745819990, guid: 2df9529200ead4cdeb1eae005c445b50,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2100620934}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2df9529200ead4cdeb1eae005c445b50, type: 3}
 --- !u!1001 &7001285854509847024
 PrefabInstance:
@@ -1313,10 +1294,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9052435731297488754, guid: 045dae6cac6744734863826458a5bfa3,
+        type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5013041492628547712, guid: 045dae6cac6744734863826458a5bfa3,
+        type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 2100221902}
   m_SourcePrefab: {fileID: 100100000, guid: 045dae6cac6744734863826458a5bfa3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
