@@ -30,6 +30,7 @@ namespace RPG.Characters.Player
 
         void Update()
         {
+            if (!left_mouse_button_hold) return;
             if (CombatHandler()) return;
             if (MovementHandler()) return;
         }

@@ -1,5 +1,6 @@
 using System;
 using RPG.Characters.Commons;
+using RPG.Characters.Player;
 using RPG.Core;
 using UnityEngine;
 
@@ -8,8 +9,10 @@ namespace RPG.Combat
     public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] float attackRange = 2f;
+        [SerializeField] float timeBetweenAttacks = 1f;
         Mover mover;
         Transform target;
+        float timeToSinceLastAttack = 0;
 
         void Start()
         {
@@ -18,6 +21,8 @@ namespace RPG.Combat
 
         void Update()
         {
+            timeToSinceLastAttack += Time.deltaTime;
+
             if (target == null) return;
 
             if (!IsInAttackRange())
@@ -27,22 +32,24 @@ namespace RPG.Combat
 
             if (IsInAttackRange())
             {
+                if (timeToSinceLastAttack < timeBetweenAttacks) return;
+
                 GetComponent<ActionScheduler>().StartAction(this);
-                Hit();
-                Cancel();
+                transform.LookAt(target.transform.position);
+                transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
+                GetComponent<PlayerAnimationController>().AttackAnimation();
+                timeToSinceLastAttack = 0;
             }
         }
 
 
         private bool IsInAttackRange()
         {
+            if (target == null) return false;
+
             return Vector3.Distance(transform.position, target.position) <= attackRange;
         }
 
-        private void Hit()
-        {
-            print("Toma esse seu bobão! " + target.name + " foi atacado!");
-        }
 
         public void Attack(CombatTarget combatTarget)
         {
@@ -52,6 +59,12 @@ namespace RPG.Combat
         public void Cancel()
         {
             target = null;
+        }
+
+        // Called in animation event
+        void Hit()
+        {
+            print("Toma esse seu bobão! " + target?.name + " foi atacado!");
         }
     }
 }

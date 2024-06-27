@@ -5,7 +5,12 @@ namespace RPG.Characters.Player
 {
     public class PlayerAnimationController : MonoBehaviour
     {
-        [SerializeField] GameObject body;
+        Animator animator;
+
+        void Start()
+        {
+            animator =  GetComponent<Animator>();
+        }
 
         void Update()
         {
@@ -18,7 +23,12 @@ namespace RPG.Characters.Player
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
 
-            body.GetComponent<Animator>().SetFloat("MoveVector", speed);
+            animator.SetFloat("MoveVector", speed);
+        }
+
+        public void AttackAnimation()
+        {
+            animator.SetTrigger("Attack");
         }
     }
 }
