@@ -8,7 +8,7 @@ namespace RPG.Characters.Enemy
 
         void Start()
         {
-            player = GameObject.FindGameObjectWithTag("PlayerCharacter");
+            player = GameObject.FindGameObjectWithTag("Player");
         }
 
         void Update()

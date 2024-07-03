@@ -1,6 +1,4 @@
-using System;
 using RPG.Characters.Commons;
-using RPG.Characters.Player;
 using RPG.Core;
 using UnityEngine;
 
@@ -12,11 +10,13 @@ namespace RPG.Combat
         [SerializeField] float timeBetweenAttacks = 1f;
         Mover mover;
         Transform target;
+        AnimationsController animationsController;
         float timeToSinceLastAttack = 0;
 
         void Start()
         {
             mover = GetComponent<Mover>();
+            animationsController = GetComponent<AnimationsController>();
         }
 
         void Update()
@@ -34,11 +34,18 @@ namespace RPG.Combat
             {
                 if (timeToSinceLastAttack < timeBetweenAttacks) return;
 
+                if (target.GetComponent<Health>().IsDead())
+                {
+                    Cancel();
+                    return;
+                }
+
                 GetComponent<ActionScheduler>().StartAction(this);
                 transform.LookAt(target.transform.position);
                 transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
-                GetComponent<PlayerAnimationController>().AttackAnimation();
+                animationsController.AttackAnimation();
                 timeToSinceLastAttack = 0;
+
             }
         }
 
@@ -50,6 +57,14 @@ namespace RPG.Combat
             return Vector3.Distance(transform.position, target.position) <= attackRange;
         }
 
+        public bool CanAttack(CombatTarget combatTarget)
+        {
+            if (combatTarget == null) return false;
+
+            Health health = combatTarget.GetComponent<Health>();
+            return health != null && !health.IsDead();
+        }
+
 
         public void Attack(CombatTarget combatTarget)
         {
@@ -59,12 +74,14 @@ namespace RPG.Combat
         public void Cancel()
         {
             target = null;
+            animationsController.StopAttack();
+
         }
 
         // Called in animation event
         void Hit()
         {
-            print("Toma esse seu bobão! " + target?.name + " foi atacado!");
+            target?.GetComponent<Health>().TakeDamage(Random.Range(8, 12));
         }
     }
 }

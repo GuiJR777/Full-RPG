@@ -70,7 +70,7 @@ namespace RPG.Characters.Player
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
 
-                if (target == null) continue;
+                if (!GetComponent<Fighter>().CanAttack(target)) continue;
 
                 if (left_mouse_button_hold)
                 {
