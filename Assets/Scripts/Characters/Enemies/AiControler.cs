@@ -1,3 +1,4 @@
+using RPG.Combat;
 using UnityEngine;
 
 namespace RPG.AI
@@ -6,18 +7,37 @@ namespace RPG.AI
     {
         [SerializeField] float chaseDistance = 5f;
         GameObject playerReference;
+        Fighter fighter;
+        Health health;
 
         void Start()
         {
             playerReference = GameObject.FindGameObjectWithTag("Player");
+            fighter = GetComponent<Fighter>();
+            health = GetComponent<Health>();
         }
 
         void Update()
         {
-            if (Vector3.Distance(playerReference.transform.position, transform.position) <= chaseDistance)
+            if (health.IsDead()) return;
+
+            if (CanAttack())
             {
-                Debug.Log(name + " can pursuit " + playerReference.name);
+                fighter.Attack(playerReference);
             }
+            else
+            {
+                fighter.Cancel();
+            }
+        }
+
+        private bool CanAttack()
+        {
+            if (playerReference == null) return false;
+
+            float distanceToPlayer = Vector3.Distance(playerReference.transform.position, transform.position);
+
+            return distanceToPlayer <= chaseDistance && fighter.CanAttack(playerReference);
         }
     }
 }

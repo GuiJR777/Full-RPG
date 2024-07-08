@@ -10,12 +10,14 @@ namespace RPG.Characters.Player
     {
         PlayerInputReader playerInputReader;
         Fighter fighter;
+        Health health;
         bool left_mouse_button_hold;
 
         void Start()
         {
             playerInputReader = GetComponent<PlayerInputReader>();
             fighter = GetComponent<Fighter>();
+            health = GetComponent<Health>();
 
             playerInputReader.LeftClick += OnLeftClick;
             playerInputReader.CancelLeftClick += OnCancelLeftClick;
@@ -30,6 +32,7 @@ namespace RPG.Characters.Player
 
         void Update()
         {
+            if (health.IsDead()) return;
             if (!left_mouse_button_hold) return;
             if (CombatHandler()) return;
             if (MovementHandler()) return;
@@ -70,11 +73,15 @@ namespace RPG.Characters.Player
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
 
-                if (!GetComponent<Fighter>().CanAttack(target)) continue;
+                if (target == null) continue;
+
+                GameObject targetGameObject = target.gameObject;
+
+                if (!GetComponent<Fighter>().CanAttack(targetGameObject)) continue;
 
                 if (left_mouse_button_hold)
                 {
-                    fighter.Attack(target);
+                    fighter.Attack(targetGameObject);
                     left_mouse_button_hold = false;
                     return true;
                 }

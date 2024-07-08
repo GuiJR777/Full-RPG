@@ -1,4 +1,5 @@
 using RPG.Characters.Commons;
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -31,6 +32,7 @@ namespace RPG.Combat
         private void Die()
         {
             GetComponent<AnimationsController>().DeathAnimation();
+            GetComponent<ActionScheduler>().CancelCurrentAction();
             Destroy(gameObject, 5f);
         }
 

@@ -57,7 +57,7 @@ namespace RPG.Combat
             return Vector3.Distance(transform.position, target.position) <= attackRange;
         }
 
-        public bool CanAttack(CombatTarget combatTarget)
+        public bool CanAttack(GameObject combatTarget)
         {
             if (combatTarget == null) return false;
 
@@ -66,7 +66,7 @@ namespace RPG.Combat
         }
 
 
-        public void Attack(CombatTarget combatTarget)
+        public void Attack(GameObject combatTarget)
         {
             target = combatTarget.transform;
         }
